@@ -13,7 +13,7 @@
       return {
         msg: 'Hello World!'
       }
-    }
+    },
   }
 </script>
 
