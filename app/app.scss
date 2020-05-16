@@ -4,6 +4,60 @@
 @import '~@nativescript/theme/default';
 
 // Override variables here
+$text-color-primary: #333333;
+$text-color-light: #ffffff;
+$text-color-secondary: #c5c5c5;
 
 // Global SCSS styling
 // @see https://docs.nativescript.org/ui/styling
+
+@font-face {
+    font-family: 'IcoMoon-Free';
+    src: url('./fonts/IcoMoon-Free.ttf') format('truetype');;
+}
+
+.ico {
+    font-family: "IcoMoon-Free";
+}
+
+.label {
+    color: $text-color-primary;
+    font-size: 18;
+}
+
+.text-dark {
+    color: $text-color-primary;
+}
+
+.text-dark-grey {
+    color: $text-color-secondary
+}
+
+.text-light {
+    color: $text-color-light
+}
+
+.flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.icon-prepend {
+    vertical-align: middle;
+    margin-left: 20;
+    margin-top: 5;
+}
+
+.textfield-icon-prepend {
+    padding-left: 30;
+    placeholder-color: lighten($text-color-primary, 10%);
+}
+
+.container {
+    display: block;
+    padding-left: 15;
+    padding-right: 15;
+}

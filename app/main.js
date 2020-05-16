@@ -1,6 +1,9 @@
 import Vue from 'nativescript-vue'
-import App from './components/App'
+import Login from './components/Login'
 import VueDevtools from 'nativescript-vue-devtools'
+import Theme from "@nativescript/theme";
+
+Theme.setMode(Theme.Light);
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools)
@@ -13,5 +16,5 @@ Vue.config.silent = (TNS_ENV === 'production')
 
 new Vue({
   store,
-  render: h => h('frame', [h(App)])
+  render: h => h('frame', [h(Login)])
 }).$start()
