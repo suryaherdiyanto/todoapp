@@ -9,17 +9,17 @@
             <GridLayout rows="auto, auto, auto">
                 <StackLayout class="form-group flex align-items-center" row="0" orientation="horizontal">
                     <GridLayout columns="*,auto">  
-                        <Image src.decode="font://&#xe945;" class="ico icon-prepend text-dark-grey" stretch="none" />
-                        <TextField class="textfield-icon-prepend" keyboardType="email" hint="Your email"  />
+                        <Label text.decode="&#xe945;" class="ico icon-prepend text-dark-grey" />
+                        <TextField v-model="credentials.email" class="textfield-icon-prepend" keyboardType="email" hint="Your email"  />
                     </GridLayout>
                 </StackLayout>
 
-                <ActivityIndicator rowSpan="3" :busy="false"></ActivityIndicator>
+                <ActivityIndicator rowSpan="3" :busy="isProcessing"></ActivityIndicator>
                 
                 <StackLayout row="1" orientation="horizontal" class="form-group">
                     <GridLayout columns="*,auto">  
-                        <Image src.decode="font://&#xe98d;" class="ico icon-prepend text-dark-grey" stretch="none" />
-                        <TextField class="textfield-icon-prepend" :secure="true" hint="Your password" />
+                        <Label text.decode="&#xe98d;" class="ico icon-prepend text-dark-grey" />
+                        <TextField v-model="credentials.password" class="textfield-icon-prepend" :secure="true" hint="Your password" />
                     </GridLayout>
                 </StackLayout>
 
@@ -30,7 +30,7 @@
                             <Span class="text-dark" text=" Register"></Span>
                         </FormattedString>
                     </Label>
-                    <Label @tap="onButtonTap">
+                    <Label>
                         <FormattedString>
                             <Span class="text-primary" text=" here."></Span>
                         </FormattedString>
@@ -39,7 +39,7 @@
             </GridLayout>
 
             <StackLayout class="p-l-20 p-r-20">
-                <Button text="Login" width="100%" class="-primary -activate" @tap="onButtonTap"></Button>
+                <Button text="Login" width="100%" class="-primary -activate" @tap="onLoginTap" />
             </StackLayout>
         </FlexboxLayout>
     </Page>
@@ -47,16 +47,49 @@
 
 <script>
 import Toast from 'nativescript-toast';
+import { mapState } from 'vuex';
 
 export default {
     data() {
         return {
-            msg: ""
+            credentials: {
+                email: '',
+                password: ''
+            }
         }
     },
+    computed: {
+        ...mapState(['isProcessing'])
+    },
     methods: {
-        onButtonTap() {
-            Toast.makeText('Hallo tetangga').show();
+        onLoginTap() {
+            this.$store.commit('processing');
+
+            this.$store.dispatch('login', this.credentials).then((response) => {
+                this.$store.commit('processed');
+                const responseData = response.content.toJSON();
+
+                if (response.statusCode !== 200) {
+                    Toast.makeText(responseData.message).show();
+                    return;
+                }
+
+                if (responseData.status !== 'ok') {
+                    Toast.makeText(responseData.message).show();
+                    return;
+                }
+
+                console.log(responseData);
+                
+
+                this.$store.commit('setToken', responseData.token);
+                this.$store.commit('loggedIn');
+                this.$store.commit('setUser', responseData.user);
+
+            }).catch((error) => {
+                this.$store.commit('processed');
+                console.error(`Request error :${error}`);
+            });
         }
     }
 }

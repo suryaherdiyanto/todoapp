@@ -1,8 +1,9 @@
-import Vue from 'nativescript-vue'
-import App from './components/App'
-import VueDevtools from 'nativescript-vue-devtools'
+import Vue from 'nativescript-vue';
+import App from './components/App';
+import VueDevtools from 'nativescript-vue-devtools';
 import Theme from "@nativescript/theme";
-import store from './store'
+import store from './store';
+import { mapState } from 'vuex';
 
 Theme.setMode(Theme.Light);
 
@@ -17,5 +18,8 @@ Vue.registerElement('CardView', () => require('@nstudio/nativescript-cardview').
 
 new Vue({
   store,
-  render: h => h('frame', [h(App)])
+  data: {
+    ...mapState(['isAuth'])
+  },
+  render: (h) => h(App)
 }).$start()
