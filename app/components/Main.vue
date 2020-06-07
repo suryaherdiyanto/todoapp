@@ -28,10 +28,10 @@
 </template>
 
 <script>
+import application from 'tns-core-modules/application';
 import { mapState } from 'vuex';
 import TaskCard from './TaskCard';
 import Toast from 'nativescript-toast';
-import Login from './Login';
 
 export default {
     components: {
@@ -90,7 +90,6 @@ export default {
     mounted() {
       
         this.$nextTick(() => {
-            
             this.getTasks();
         });
     }

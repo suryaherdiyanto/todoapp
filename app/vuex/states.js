@@ -7,7 +7,8 @@ export default {
     url: {
         login: '/user/auth',
         task: {
-            index: '/tasks'
+            index: '/tasks',
+            subtasks: '/subtasks'
         }
     },
     isProcessing: false,

@@ -21,5 +21,26 @@ export default {
                 'Authorization': `Bearer ${state.auth.token}`,
             }
         });
+    },
+
+    async getSubTasks({ getters, state }, taskId) {
+        return await request({
+            url: `${ getters.subtaskUrl(taskId) }`,
+            headers: {
+                'Authorization': `Bearer ${state.auth.token}`,
+            }
+        });
+    },
+
+    async createSubTask({ getters, state }, {taskId, taskName}) {
+        return await request({
+            url: `${ getters.subtaskUrl(taskId) }`,
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${state.auth.token}`,
+                'Content-Type': 'application/json'
+            },
+            content: JSON.stringify({ name: taskName, task_id: taskId, is_completed: 0 }),
+        });
     }
 }

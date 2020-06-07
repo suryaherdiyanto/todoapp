@@ -1,7 +1,7 @@
 <template>
     <Page>
       <GridLayout rows="*" columns="*">
-        <Frame v-if="isAuth">
+        <Frame v-if="isAuth" @navigated="onNavigate">
           <Main />
         </Frame>
 
@@ -25,7 +25,13 @@ export default {
 	components: {
 		Main,
 		Login
-	},
+  },
+  methods: {
+    onNavigate(payload) {
+      payload.clearHistory = true;
+      
+    }
+  }
 }
 </script>
 
