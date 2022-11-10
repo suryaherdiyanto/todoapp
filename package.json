@@ -17,7 +17,7 @@
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
     "@nstudio/nativescript-cardview": "^1.0.0",
-    "@vue/devtools": "^5.3.3",
+    "@vue/devtools": "^6.4.5",
     "nativescript-socketio": "^3.3.1",
     "nativescript-toast": "^2.0.0",
     "nativescript-toasty": "^3.0.0-alpha.2",
